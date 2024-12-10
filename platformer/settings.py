@@ -273,7 +273,7 @@ LEVEL_7 = [
 LEVEL_8 = [
     '1111111111111111111111111',
     '1P       U              1',
-    '1F             U        1',
+    '1*             U        1',
     '1       3   E           1',
     '1  3       3  3  3      1',
     '1      3                1',
@@ -481,5 +481,6 @@ LEVEL_18 = [
 
 level_list = [outline, LEVEL_1, LEVEL_2, LEVEL_3, LEVEL_4,LEVEL_5, 
               LEVEL_6, LEVEL_7, LEVEL_8, LEVEL_9, LEVEL_10, outline,
-              LEVEL_11, LEVEL_12, LEVEL_13, LEVEL_14, LEVEL_15, LEVEL_16, LEVEL_17]
+              LEVEL_11, LEVEL_12, LEVEL_13, LEVEL_14, LEVEL_15, LEVEL_16,
+              LEVEL_17, LEVEL_18, outline]
 
