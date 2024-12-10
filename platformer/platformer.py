@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 11
+index = 0
 end_list = []
 player_list = []
 enemy_list = []
@@ -27,9 +27,9 @@ rimy_list = []
 lemy_list = []
 block_list = []
 
-# current_level = level_list[index] 
+current_level = level_list[index] 
 # current_level = outline 
-current_level = LAYOUT 
+# current_level = LAYOUT 
 
 
 block_img = pg.image.load('platformer/images/crate.png')
