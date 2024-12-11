@@ -32,19 +32,20 @@ current_level = level_list[index]
 # current_level = LAYOUT 
 
 
-block_img = pg.image.load('images/crate.png')
-arrow_img = pg.image.load('images/arrow.png')
-key_img = pg.image.load('images/key_blue.png')
-player_img = pg.image.load('images/Boy face.png')
-gate_img = pg.image.load('images/lock_blue.png')
-stone_wall = pg.image.load('images/stone wall.jpg')
-moving_img = pg.image.load('images/cloud_3.png')
-fly_img = pg.image.load('images/fly_normal.png')
-broken_img = pg.image.load('images/fence_broken.png')
-warp_img = pg.image.load('images/warp.png')
-slime_img = pg.image.load('images/slime_walk.png')
-bridge_img = pg.image.load('images/bridge.png')
-coin_img = pg.image.load('images/coin_gold.png')
+block_img = pg.image.load('platformer/images/crate.png')
+arrow_img = pg.image.load('platformer/images/arrow.png')
+key_img = pg.image.load('platformer/images/key_blue.png')
+player_img = pg.image.load('platformer/images/Boy face.png')
+gate_img = pg.image.load('platformer/images/lock_blue.png')
+stone_wall = pg.image.load('platformer/images/stone wall.jpg')
+moving_img = pg.image.load('platformer/images/cloud_3.png')
+fly_img = pg.image.load('platformer/images/fly_normal.png')
+broken_img = pg.image.load('platformer/images/fence_broken.png')
+warp_img = pg.image.load('platformer/images/warp.png')
+slime_img = pg.image.load('platformer/images/slime_walk.png')
+bridge_img = pg.image.load('platformer/images/bridge.png')
+coin_img = pg.image.load('platformer/images/coin_gold.png')
+bonus_img = pg.image.load('platformer/images/bonus.png')
 
 def load_levels(level):
     end_list.clear()
@@ -138,7 +139,7 @@ def load_levels(level):
                 lemy_list.append(lemy)
 
             elif level[row][col] == 'h':
-                brick = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, coin_img)
+                brick = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, bonus_img)
                 block_list.append(brick)
 
 playing = True
