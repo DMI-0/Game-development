@@ -41,7 +41,7 @@ class Player:
         self.run_left = False
 
         self.current_frame = 0
-        self.delay = 50
+        self.delay = 4
         self.last  =pg.time.get_ticks()
 
     def draw(self):
@@ -62,14 +62,18 @@ class Player:
             x_change = -1 * self.velo
             self.run_left = True
 
-            self.current_frame = (self.current_frame + 1) % len(self.left)
-            self.image = self.left[self.current_frame]
+            if self.now - self.last > self.delay:
+                self.last = self.now
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.left[self.current_frame]
         elif keys[pg.K_RIGHT] and self.HP >= 1: # and self.rect.x != WIDTH - 100:
+            self.now = pg.time.get_ticks()
             x_change = self.velo
-
-            self.current_frame = (self.current_frame + 1) % len(self.left)
             self.run_right = True
-            self.image = self.right[self.current_frame]
+
+            if self.now - self.last > self.delay:
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.right[self.current_frame]
         else:
             x_change = 0
             if self.run_left:
@@ -84,9 +88,22 @@ class Player:
 
         # set x_velo (velocity) based on key presses
         if keys[pg.K_a] and self.HP >= 1:                                                        #  or and self.rect.x > BRICK_WIDTH:    # or self.rect.x != 50:
+            self.now = pg.time.get_ticks()
             x_change = -1 * self.velo
+            self.run_left = True
+
+            if self.now - self.last > self.delay:
+                self.last = self.now
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.left[self.current_frame]
         elif keys[pg.K_d] and self.HP >= 1: # and self.rect.x != WIDTH - 100:
+            self.now = pg.time.get_ticks()
             x_change = self.velo
+            self.run_right = True
+
+            if self.now - self.last > self.delay:
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.right[self.current_frame]
 
     # jump on space key
         if keys[pg.K_SPACE] and not self.jumping and self.landed:
