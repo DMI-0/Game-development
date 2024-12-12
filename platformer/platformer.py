@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 20
+index = 0
 end_list = []
 player_list = []
 enemy_list = []
