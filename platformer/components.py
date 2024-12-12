@@ -10,12 +10,12 @@ playing = True
 clock = pg.time.Clock()
 
 class Player:
-    def __init__(self, x_loc, y_loc, width, height, color, display, img):
-        self.image = pg.transform.scale(img, (width, height))
-        self.rect = self.image.get_rect()
-        self.rect.x = x_loc
-        self.rect.y = y_loc
-        self.color = color
+    def __init__(self, x_loc, y_loc, display, right_img, left_img):
+        # img = pg.image.load('platformer/character/walk/walk0001.png')
+        # self.image = pg.transform.scale(img, (width, height))
+        self.right = right_img
+        self.left = left_img
+        # self.rect = self.image.get_rect()
         self.display = display
         self.velo = 5
         self.x_velo = 5
@@ -23,13 +23,26 @@ class Player:
         self.jumping = False
         self.falling = False
         self.landed = True
-        self.HP = 2
+        self.HP = 1
         self.reset = 0
         self.tel = False
         self.level = False
         self.x = x_loc
         self.y = y_loc
         self.add = False
+
+
+        self.image = self.right[0]
+        self.rect = self.image.get_rect()
+        self.rect.x = x_loc
+        self.rect.y = y_loc
+
+        self.run_right = False
+        self.run_left = False
+
+        self.current_frame = 0
+        self.delay = 50
+        self.last  =pg.time.get_ticks()
 
     def draw(self):
         self.display.blit(self.image, self.rect)
@@ -45,9 +58,29 @@ class Player:
 
         # set x_velo (velocity) based on key presses
         if keys[pg.K_LEFT] and self.HP >= 1:                                                        #  or and self.rect.x > BRICK_WIDTH:    # or self.rect.x != 50:
+            self.now = pg.time.get_ticks()
             x_change = -1 * self.velo
+            self.run_left = True
+
+            self.current_frame = (self.current_frame + 1) % len(self.left)
+            self.image = self.left[self.current_frame]
         elif keys[pg.K_RIGHT] and self.HP >= 1: # and self.rect.x != WIDTH - 100:
             x_change = self.velo
+
+            self.current_frame = (self.current_frame + 1) % len(self.left)
+            self.run_right = True
+            self.image = self.right[self.current_frame]
+        else:
+            x_change = 0
+            if self.run_left:
+                self.image = self.left[0]
+                self.run_left = False
+            elif self.run_right:
+                self.image = self.right[0]
+                self.run_right = False
+
+
+
 
         # set x_velo (velocity) based on key presses
         if keys[pg.K_a] and self.HP >= 1:                                                        #  or and self.rect.x > BRICK_WIDTH:    # or self.rect.x != 50:
