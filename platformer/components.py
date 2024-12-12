@@ -23,12 +23,13 @@ class Player:
         self.jumping = False
         self.falling = False
         self.landed = True
-        self.HP = 1
+        self.HP = 2
         self.reset = 0
         self.tel = False
         self.level = False
         self.x = x_loc
         self.y = y_loc
+        self.add = False
 
     def draw(self):
         self.display.blit(self.image, self.rect)
@@ -136,6 +137,7 @@ class Player:
                 self.HP -= 1
             if self.rect.y > HEIGHT:
                     self.HP -= 1
+
         
         for move in move_list:
             # vertical collision
@@ -284,7 +286,7 @@ class Player:
             elif big_enemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
                 self.HP -= 1
             if self.rect.y > HEIGHT:
-                    self.HP -= 1
+                    self.HP = 0
         for br_enemy in br_enemy_list:
             # vertical collision
             if br_enemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
@@ -297,8 +299,6 @@ class Player:
             # Horizontarl collision
             elif br_enemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
                 self.HP -= 1
-            if self.rect.y > HEIGHT:
-                    self.HP -= 1
         for col in collasping_list:
             # vertical collision
             if col.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
@@ -419,6 +419,11 @@ class Brick:
                 self.rect.y = -100
             if player.HP <= 0:
                 self.rect.y = self.y
+    def lava(self, player_list):
+        for player in player_list:
+            if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
+                player.HP -= 1
+                player.y_velo = -15
 
 class Enemy:
     def __init__(self, x_loc, y_loc, width, height, color, display, img):
@@ -764,6 +769,12 @@ class Key:
             self.key += -1
             self.HP = 1
             self.pick_up = False
+        if player.HP <= 0 and self.key >= 1:
+            gate.rect.y = gate.rect.y
+            self.rect.y = self.y
+            self.key += -1
+            self.pick_up = False
+
 
 
                         # resets += 1
@@ -848,7 +859,7 @@ class Gate:
                 elif big_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
                     self.HP -= 1
                 if player.rect.y > HEIGHT:
-                        self.HP -= 1
+                        self.HP = 0
             
             for br_enemy in br_enemy_list:
                 if br_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
@@ -859,7 +870,7 @@ class Gate:
                 elif br_enemy.rect.colliderect(player.rect.x , player.rect.y, player.rect.width, player.rect.height):
                     self.HP -= 1
                 if player.rect.y > HEIGHT:
-                    self.HP -= 1
+                    self.HP = 0
 
 
             for rimy in rimy_list:
