@@ -33,10 +33,23 @@ current_level = level_list[index]
 # current_level = LAYOUT 
 
 
+walk_right_list = []
+walk_left_list = []
+
+for char in range(1,12):
+    img = f'platformer/character/walk/walk000{char}.png'
+    right = pg.image.load(img)
+    right = pg.transform.scale(right, (PLAYER_WIDTH, PLAYER_HEIGHT))
+    left = pg.transform.flip(right, True, False)
+    walk_right_list.append(right)
+    walk_left_list.append(left)
+    print(walk_right_list)
+
+
 block_img = pg.image.load('platformer/images/crate.png')
 arrow_img = pg.image.load('platformer/images/arrow.png')
 key_img = pg.image.load('platformer/images/key_blue.png')
-player_img = pg.image.load('platformer/images/Boy face.png')
+# player_img = pg.image.load('platformer/images/boy_face.png')
 gate_img = pg.image.load('platformer/images/lock_blue.png')
 stone_wall = pg.image.load('platformer/images/stone wall.jpg')
 moving_img = pg.image.load('platformer/images/cloud_3.png')
@@ -96,7 +109,7 @@ def load_levels(level):
                 movement = comps.Brick(screen, PINK, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, warp_img)
                 teleport_list.append(movement)
             elif level[row][col] == 'P':
-                player = comps.Player(x_loc, y_loc, PLAYER_WIDTH, PLAYER_HEIGHT, BLUE, screen, player_img)
+                player = comps.Player(x_loc, y_loc, screen, walk_right_list, walk_left_list)
                 player_list.append(player)
             elif level[row][col] == 'E':
                 enemy = comps.Enemy(x_loc, y_loc, ENEMY_WIDTH, ENEMY_HEIGHT, RED, screen, fly_img)
