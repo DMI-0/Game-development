@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 12
+index = 20
 end_list = []
 player_list = []
 enemy_list = []
@@ -26,26 +26,28 @@ colapsing_list = []
 rimy_list = []
 lemy_list = []
 block_list = []
+lava_list = []
 
 current_level = level_list[index] 
 # current_level = outline 
 # current_level = LAYOUT 
 
 
-block_img = pg.image.load('platformer/images/crate.png')
-arrow_img = pg.image.load('platformer/images/arrow.png')
-key_img = pg.image.load('platformer/images/key_blue.png')
-player_img = pg.image.load('platformer/images/Boy face.png')
-gate_img = pg.image.load('platformer/images/lock_blue.png')
-stone_wall = pg.image.load('platformer/images/stone wall.jpg')
-moving_img = pg.image.load('platformer/images/cloud_3.png')
-fly_img = pg.image.load('platformer/images/fly_normal.png')
-broken_img = pg.image.load('platformer/images/fence_broken.png')
-warp_img = pg.image.load('platformer/images/warp.png')
-slime_img = pg.image.load('platformer/images/slime_walk.png')
-bridge_img = pg.image.load('platformer/images/bridge.png')
-coin_img = pg.image.load('platformer/images/coin_gold.png')
-bonus_img = pg.image.load('platformer/images/bonus.png')
+block_img = pg.image.load('images/crate.png')
+arrow_img = pg.image.load('images/arrow.png')
+key_img = pg.image.load('images/key_blue.png')
+player_img = pg.image.load('images/Boy face.png')
+gate_img = pg.image.load('images/lock_blue.png')
+stone_wall = pg.image.load('images/stone wall.jpg')
+moving_img = pg.image.load('images/cloud_3.png')
+fly_img = pg.image.load('images/fly_normal.png')
+broken_img = pg.image.load('images/fence_broken.png')
+warp_img = pg.image.load('images/warp.png')
+slime_img = pg.image.load('images/slime_walk.png')
+bridge_img = pg.image.load('images/bridge.png')
+coin_img = pg.image.load('images/coin_gold.png')
+bonus_img = pg.image.load('images/bonus.png')
+lava_img = pg.image.load('images/lava.png')
 
 def load_levels(level):
     end_list.clear()
@@ -68,7 +70,8 @@ def load_levels(level):
     colapsing_list.clear()
     rimy_list.clear()
     lemy_list.clear()
-    block_list.clear()    
+    block_list.clear()   
+    lava_list.clear() 
 
     for row in range(len(level)):
         y_loc = row * BRICK_HEIGHT
@@ -137,10 +140,12 @@ def load_levels(level):
             elif level[row][col] == '>':
                 lemy = comps.Enemy(x_loc, y_loc, ENEMY_WIDTH, ENEMY_HEIGHT, RED, screen, slime_img)
                 lemy_list.append(lemy)
-
             elif level[row][col] == 'h':
                 brick = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, bonus_img)
                 block_list.append(brick)
+            elif level[row][col] == 'm':
+                magma = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, lava_img)
+                lava_list.append(magma)
 
 playing = True
 clock = pg.time.Clock()
@@ -156,6 +161,7 @@ while playing:
         screen.fill(BLACK)
     elif index >= 11:
         screen.fill(DARK_RED)
+
         
 
     # draw code should go here
@@ -238,6 +244,9 @@ while playing:
     for h in block_list:
         h.draw_brick()
         h.HP(player_list)
+    for m in lava_list:
+        m.draw_brick()
+        m.lava(player_list)
 
 
 
@@ -248,6 +257,8 @@ while playing:
                     colapsing_list, rimy_list, lemy_list)
         play.draw()
         play.re()
+
+             
 
     if play.rect.colliderect(next_level.rect):
         index += 1
