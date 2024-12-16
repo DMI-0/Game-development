@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 22
+index = 0
 end_list = []
 player_list = []
 enemy_list = []
@@ -29,9 +29,9 @@ block_list = []
 lava_list = []
 second_player_list = []
 
-# current_level = level_list[index] 
+current_level = level_list[index] 
 # current_level = outline 
-current_level = LAYOUT 
+# current_level = LAYOUT 
 
 
 walk_right_list = []
