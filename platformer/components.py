@@ -1152,3 +1152,27 @@ class Gate:
                 if player.HP <= 0:
                     self.rect.y = self.y
                     key.rect.y = key.rect.y
+
+
+'''
+    def col(self, player_list):
+        x_change = 0
+        y_change = 0
+        for player in player_list:
+            if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                x_change = 0
+                player.HP -= 1
+                # self.rect.x = player.rect.x - 100
+                # pg.time.set_timer(hit, 1, loops=1)
+
+                if player.HP <= 0:
+                    self.rect.x = self.x
+                    self.velo = 0
+            elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                x_change = 0
+                player.HP - 1
+                if player.HP <= 0:
+                    self.rect.x = self.x
+                    self.velo = 0
+
+'''
