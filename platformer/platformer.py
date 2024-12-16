@@ -38,8 +38,8 @@ walk_right_list = []
 walk_left_list = []
 
 for char in range(1,12):
-    img = f'character/walk/walk000{char}.png'
-    # img = f'images/Player/Boy_walk000{char}.png'
+    img = f'platformer/character/walk/walk000{char}.png'
+    # img = f'platformer/images/Player/Boy_walk000{char}.png'
 
     right = pg.image.load(img)
     right = pg.transform.scale(right, (PLAYER_WIDTH, PLAYER_HEIGHT))
@@ -49,22 +49,21 @@ for char in range(1,12):
     # print(walk_right_list)
 
 
-block_img = pg.image.load('images/crate.png')
-arrow_img = pg.image.load('images/arrow.png')
-key_img = pg.image.load('images/key_blue.png')
-# player_img = pg.image.load('images/boy_face.png')
-gate_img = pg.image.load('images/lock_blue.png')
-stone_wall = pg.image.load('images/stone wall.jpg')
-moving_img = pg.image.load('images/cloud_3.png')
-fly_img = pg.image.load('images/fly_normal.png')
-broken_img = pg.image.load('images/fence_broken.png')
-warp_img = pg.image.load('images/warp.png')
-slime_img = pg.image.load('images/slime_walk.png')
-bridge_img = pg.image.load('images/bridge.png')
-coin_img = pg.image.load('images/coin_gold.png')
-bonus_img = pg.image.load('images/bonus.png')
-lava_img = pg.image.load('images/lava.png')
-
+block_img = pg.image.load('platformer/images/crate.png')
+arrow_img = pg.image.load('platformer/images/arrow.png')
+key_img = pg.image.load('platformer/images/key_blue.png')
+# player_img = pg.image.load('platformer/images/boy_face.png')
+gate_img = pg.image.load('platformer/images/lock_blue.png')
+stone_wall = pg.image.load('platformer/images/stone wall.jpg')
+moving_img = pg.image.load('platformer/images/cloud_3.png')
+fly_img = pg.image.load('platformer/images/fly_normal.png')
+broken_img = pg.image.load('platformer/images/fence_broken.png')
+warp_img = pg.image.load('platformer/images/warp.png')
+slime_img = pg.image.load('platformer/images/slime_walk.png')
+bridge_img = pg.image.load('platformer/images/bridge.png')
+coin_img = pg.image.load('platformer/images/coin_gold.png')
+bonus_img = pg.image.load('platformer/images/bonus.png')
+lava_img = pg.image.load('platformer/images/lava.png')
 def load_levels(level):
     end_list.clear()
     player_list.clear()
