@@ -203,16 +203,16 @@ while playing:
         screen.blit(text, (450, 350)) 
         text2 = font.render("YOU'VE BEATEN 20 LEVELS",True, WHITE)
         screen.blit(text2, (400, 400))
-    elif index == 23:
-        font = pg.font.SysFont("TimesNewRoman", 35)
-        text = font.render("This is your clone", True, WHITE)
-        screen.blit(text, (450, 350)) 
-        text2 = font.render("he can't beat the levels",True, WHITE)
-        screen.blit(text2, (400, 400))
-        text3 = font.render("use him to make the player pass", True, WHITE)
-        screen.blit(text3, (350, 450))
-        text4 = font.render("use J to move left, L to move right, and I to jump", True, WHITE)
-        screen.blit(text4,(300, 500))
+    # elif index == 23:
+    #     font = pg.font.SysFont("TimesNewRoman", 35)
+    #     text = font.render("This is your clone", True, WHITE)
+    #     screen.blit(text, (450, 350)) 
+    #     text2 = font.render("he can't beat the levels",True, WHITE)
+    #     screen.blit(text2, (400, 400))
+    #     text3 = font.render("use him to make the player pass", True, WHITE)
+    #     screen.blit(text3, (350, 450))
+    #     text4 = font.render("use J to move left, L to move right, and I to jump", True, WHITE)
+    #     screen.blit(text4,(300, 500))
 
     for block in brick_list:
         block.draw_brick()
@@ -236,10 +236,10 @@ while playing:
         char.reverse()
     for s in right_side_list:
         s.draw_brick()
-        s.right_side()
+        s.right_side(player_list)
     for l in left_side_list:
         l.draw_brick()
-        l.left_side() 
+        l.left_side(player_list) 
     for i in key_list:
         i.draw()
         i.picked_up(player_list, gate_list)
@@ -290,13 +290,32 @@ while playing:
                     colapsing_list, rimy_list, lemy_list)
         play.draw()
         play.re()
-    for s in second_player_list:
-        s.draw()
-        s.JIL(brick_list, enemy_list,teleport_list, 
-                    up_enemy_list, moving_list, reverse_list, re_list, gate_list,
-                    right_side_list, left_side_list, big_enemy_list, br_enemy_list,
-                    colapsing_list, rimy_list, lemy_list)
-        s.re()
+        if play.HP <= 0:
+            screen.fill(BLACK)
+            font = pg.font.SysFont("TimesNewRoman", 35)
+            text = font.render("GAME OVER", True, SKY)
+            screen.blit(text, ((WIDTH/2)-100, HEIGHT/2))
+            start = font.render("Click 'Return' or 'Enter' to start over", True, SKY)
+            screen.blit(start, ((WIDTH/2)-250, (HEIGHT/2)+50))
+            if play.reset == 50:
+                screen.fill(BLACK)
+                font = pg.font.SysFont("TimesNewRoman", 35)
+                text = font.render("SKILL ISSUE",True, WHITE)
+                screen.blit(text, ((WIDTH/2)-100, HEIGHT/2))
+            elif play.reset == 100:
+                screen.fill(BLACK)
+                font = pg.font.SysFont("TimesNewRoman", 35)
+                text = font.render("MAN YOU SUCK",True, WHITE)
+                screen.blit(text, ((WIDTH/2)-150, HEIGHT/2))
+            elif play.reset >= 150:
+                screen.fill(BLACK)
+                font = pg.font.SysFont("TimesNewRoman", 35)
+                text = font.render("THIS IS JUST SAD",True, WHITE)
+                screen.blit(text, ((WIDTH/2)-150, HEIGHT/2))
+        if play.HP <= 0:
+            play.reset += 1
+
+
 
              
 
