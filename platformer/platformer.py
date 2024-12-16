@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 0
+index = 22
 end_list = []
 player_list = []
 enemy_list = []
@@ -27,40 +27,43 @@ rimy_list = []
 lemy_list = []
 block_list = []
 lava_list = []
+second_player_list = []
 
-current_level = level_list[index] 
+# current_level = level_list[index] 
 # current_level = outline 
-# current_level = LAYOUT 
+current_level = LAYOUT 
 
 
 walk_right_list = []
 walk_left_list = []
 
 for char in range(1,12):
-    img = f'platformer/character/walk/walk000{char}.png'
+    img = f'character/walk/walk000{char}.png'
+    # img = f'images/Player/Boy_walk000{char}.png'
+
     right = pg.image.load(img)
     right = pg.transform.scale(right, (PLAYER_WIDTH, PLAYER_HEIGHT))
     left = pg.transform.flip(right, True, False)
     walk_right_list.append(right)
     walk_left_list.append(left)
-    print(walk_right_list)
+    # print(walk_right_list)
 
 
-block_img = pg.image.load('platformer/images/crate.png')
-arrow_img = pg.image.load('platformer/images/arrow.png')
-key_img = pg.image.load('platformer/images/key_blue.png')
-# player_img = pg.image.load('platformer/images/boy_face.png')
-gate_img = pg.image.load('platformer/images/lock_blue.png')
-stone_wall = pg.image.load('platformer/images/stone wall.jpg')
-moving_img = pg.image.load('platformer/images/cloud_3.png')
-fly_img = pg.image.load('platformer/images/fly_normal.png')
-broken_img = pg.image.load('platformer/images/fence_broken.png')
-warp_img = pg.image.load('platformer/images/warp.png')
-slime_img = pg.image.load('platformer/images/slime_walk.png')
-bridge_img = pg.image.load('platformer/images/bridge.png')
-coin_img = pg.image.load('platformer/images/coin_gold.png')
-bonus_img = pg.image.load('platformer/images/bonus.png')
-lava_img = pg.image.load('platformer/images/lava.png')
+block_img = pg.image.load('images/crate.png')
+arrow_img = pg.image.load('images/arrow.png')
+key_img = pg.image.load('images/key_blue.png')
+# player_img = pg.image.load('images/boy_face.png')
+gate_img = pg.image.load('images/lock_blue.png')
+stone_wall = pg.image.load('images/stone wall.jpg')
+moving_img = pg.image.load('images/cloud_3.png')
+fly_img = pg.image.load('images/fly_normal.png')
+broken_img = pg.image.load('images/fence_broken.png')
+warp_img = pg.image.load('images/warp.png')
+slime_img = pg.image.load('images/slime_walk.png')
+bridge_img = pg.image.load('images/bridge.png')
+coin_img = pg.image.load('images/coin_gold.png')
+bonus_img = pg.image.load('images/bonus.png')
+lava_img = pg.image.load('images/lava.png')
 
 def load_levels(level):
     end_list.clear()
@@ -85,6 +88,7 @@ def load_levels(level):
     lemy_list.clear()
     block_list.clear()   
     lava_list.clear() 
+    second_player_list.clear()
 
     for row in range(len(level)):
         y_loc = row * BRICK_HEIGHT
@@ -148,10 +152,10 @@ def load_levels(level):
                 colapsing_brick = comps.Brick(screen, GRAY, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, broken_img)
                 colapsing_list.append(colapsing_brick)
             elif level[row][col] == '<':
-                test = comps.Enemy(x_loc, y_loc, ENEMY_WIDTH, ENEMY_HEIGHT, RED, screen, slime_img)
+                test = comps.Enemy(x_loc, y_loc, slime_width, slime_height, RED, screen, slime_img)
                 rimy_list.append(test)
             elif level[row][col] == '>':
-                lemy = comps.Enemy(x_loc, y_loc, ENEMY_WIDTH, ENEMY_HEIGHT, RED, screen, slime_img)
+                lemy = comps.Enemy(x_loc, y_loc, slime_width, slime_height, RED, screen, slime_img)
                 lemy_list.append(lemy)
             elif level[row][col] == 'h':
                 brick = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, bonus_img)
@@ -159,6 +163,10 @@ def load_levels(level):
             elif level[row][col] == 'm':
                 magma = comps.Brick(screen, WHITE, x_loc, y_loc, BRICK_WIDTH, BRICK_HEIGHT, lava_img)
                 lava_list.append(magma)
+            elif level[row][col] == 'j':
+                second_player = comps.Player(x_loc, y_loc, screen, walk_right_list, walk_left_list)
+
+                second_player_list.append(second_player)
 
 playing = True
 clock = pg.time.Clock()
@@ -171,7 +179,7 @@ while playing:
     # game logic
   # clear the screen
     if index <= 11:
-        screen.fill(BLACK)
+        screen.fill(NIGHT)
     elif index >= 11:
         screen.fill(DARK_RED)
 
@@ -189,6 +197,22 @@ while playing:
         screen.blit(text, (450, 350)) 
         text2 = font.render("YOU'VE BEATEN THE FIRST 10 LEVELS",True, WHITE)
         screen.blit(text2, (300, 400))
+    elif index == 22:
+        font = pg.font.SysFont("TimesNewRoman", 35)
+        text = font.render("CONGRADULATIONS", True, WHITE)
+        screen.blit(text, (450, 350)) 
+        text2 = font.render("YOU'VE BEATEN 20 LEVELS",True, WHITE)
+        screen.blit(text2, (400, 400))
+    elif index == 23:
+        font = pg.font.SysFont("TimesNewRoman", 35)
+        text = font.render("This is your clone", True, WHITE)
+        screen.blit(text, (450, 350)) 
+        text2 = font.render("he can't beat the levels",True, WHITE)
+        screen.blit(text2, (400, 400))
+        text3 = font.render("use him to make the player pass", True, WHITE)
+        screen.blit(text3, (350, 450))
+        text4 = font.render("use J to move left, L to move right, and I to jump", True, WHITE)
+        screen.blit(text4,(300, 500))
 
     for block in brick_list:
         block.draw_brick()
@@ -218,14 +242,10 @@ while playing:
         l.left_side() 
     for i in key_list:
         i.draw()
-        i.picked_up(player_list, gate_list, enemy_list, up_enemy_list, 
-                    reverse_list, big_enemy_list, br_enemy_list,
-                    rimy_list, lemy_list)
+        i.picked_up(player_list, gate_list)
     for g in gate_list:
         g.draw()
-        g.picked_up(player_list, key_list, enemy_list, up_enemy_list
-                    , reverse_list, big_enemy_list, br_enemy_list,
-                    rimy_list, lemy_list)
+        g.picked_up(player_list, key_list)
     for char in enemy_list:
         char.draw_enemy()
         char.update(player_list)
@@ -270,6 +290,13 @@ while playing:
                     colapsing_list, rimy_list, lemy_list)
         play.draw()
         play.re()
+    for s in second_player_list:
+        s.draw()
+        s.JIL(brick_list, enemy_list,teleport_list, 
+                    up_enemy_list, moving_list, reverse_list, re_list, gate_list,
+                    right_side_list, left_side_list, big_enemy_list, br_enemy_list,
+                    colapsing_list, rimy_list, lemy_list)
+        s.re()
 
              
 
