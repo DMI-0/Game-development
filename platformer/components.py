@@ -41,7 +41,7 @@ class Player:
         self.run_left = False
 
         self.current_frame = 0
-        self.delay = 4
+        self.delay = 50
         self.last  =pg.time.get_ticks()
 
     def draw(self):
@@ -179,6 +179,360 @@ class Player:
                 # if player is going down
                 if self.y_velo >= 0:
                     self.HP -= 1
+                    enemy.rect.x += -10000
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif enemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+            if self.rect.y > HEIGHT:
+                    self.HP -= 1
+
+        
+        for move in move_list:
+            # vertical collision
+            if move.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = move.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.rect.x = self.x
+                    self.rect.y = self.y
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = move.rect.bottom - self.rect.top
+                    self.rect.x = self.x
+                    self.rect.y = self.y
+            if move.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.rect.x = self.x
+                self.rect.y = self.y
+        for upenemy in up_enemy_list:
+            # vertical collision
+            if upenemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif upenemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1       
+        for move in moving_list:
+            # vertical collision
+            if move.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                self.x_velo = 0
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = move.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = move.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if move.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                # self.y_velo = 0
+                pass
+
+        for rem in rem_list:
+            # vertical collision
+            if rem.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif rem.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+            if self.rect.y > HEIGHT:
+                    self.HP -= 1
+        for up in up_list:
+            # vertical collision
+            if up.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = up.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = up.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if up.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                # self.y_velo = 0
+                pass
+        for gate in gate_list:
+            # vertical collision
+            if gate.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = gate.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = gate.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if gate.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                x_change = 0
+        
+        for right in right_list:
+            # vertical collision
+            if right.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                self.x_velo = 0
+            # if player is going down
+                if self.y_velo >= 0:
+                    y_change = right.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = right.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if right.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                # self.y_velo = 0
+                pass
+        for left in left_list:
+            # vertical collision
+            if left.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                self.x_velo = 0
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = left.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = left.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if left.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                # self.y_velo = 0
+                pass
+
+        for big_enemy in big_enemy_list:
+            # vertical collision
+            if big_enemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif big_enemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+            if self.rect.y > HEIGHT:
+                    self.HP = 0
+        for br_enemy in br_enemy_list:
+            # vertical collision
+            if br_enemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontarl collision
+            elif br_enemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+        for col in collasping_list:
+            # vertical collision
+            if col.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = col.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = col.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if col.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                x_change = 0
+
+        for rimy in rimy_list:
+            # vertical collision
+            if rimy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif rimy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+            if self.rect.y > HEIGHT:
+                    self.HP -= 1
+    
+        for lemy in lemy_list:
+            # vertical collision
+            if lemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                # if player is going up
+                elif self.y_velo < 0:
+                    self.HP -= 1
+            # Horizontal collision
+            elif lemy.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                self.HP -= 1
+            if self.rect.y > HEIGHT:
+                    self.HP -= 1
+
+        if self.rect.y > HEIGHT:
+            self.HP = 0
+        if self.rect.y < 0:
+            self.HP = 0
+        if self.rect.x > WIDTH:
+            self.HP = 0
+        if self.rect.x < -25:
+            self.HP = 0
+
+        # print(self.rect.x)
+        if self.HP <= 0:
+            self.velo = 0
+            x_change = 0
+            y_change = 0
+            self.jumping = False
+    # update the player location
+        self.rect.x += x_change
+        self.rect.y += y_change
+        y_change = -1 * self.velo
+
+    def JIL(self, surface_list, enemy_list, move_list, up_enemy_list,
+               moving_list, rem_list, up_list, gate_list, right_list, left_list,
+               big_enemy_list, br_enemy_list, collasping_list, rimy_list, lemy_list):
+        x_change = 0
+        y_change = 0
+
+        # list of key presses
+        keys = pg.key.get_pressed()
+        mouse = pg.mouse.get_pressed()
+
+        # set x_velo (velocity) based on key presses
+        if keys[pg.K_j] and self.HP >= 1:                                                        #  or and self.rect.x > BRICK_WIDTH:    # or self.rect.x != 50:
+            self.now = pg.time.get_ticks()
+            x_change = -1 * self.velo
+            self.run_left = True
+
+            if self.now - self.last > self.delay:
+                self.last = self.now
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.left[self.current_frame]
+        elif keys[pg.K_l] and self.HP >= 1: # and self.rect.x != WIDTH - 100:
+            self.now = pg.time.get_ticks()
+            x_change = self.velo
+            self.run_right = True
+
+
+            if self.now - self.last > self.delay:
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.right[self.current_frame]
+        else:
+            x_change = 0
+            if self.run_left:
+                self.image = self.left[0]
+                self.run_left = False
+            elif self.run_right:
+                self.image = self.right[0]
+                self.run_right = False
+
+
+
+
+        # set x_velo (velocity) based on key presses
+        if keys[pg.K_a] and self.HP >= 1:                                                        #  or and self.rect.x > BRICK_WIDTH:    # or self.rect.x != 50:
+            self.now = pg.time.get_ticks()
+            x_change = -1 * self.velo
+            self.run_left = True
+
+            if self.now - self.last > self.delay:
+                self.last = self.now
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.left[self.current_frame]
+        elif keys[pg.K_d] and self.HP >= 1: # and self.rect.x != WIDTH - 100:
+            self.now = pg.time.get_ticks()
+            x_change = self.velo
+            self.run_right = True
+
+            if self.now - self.last > self.delay:
+                self.current_frame = (self.current_frame + 1) % len(self.left)
+                self.image = self.right[self.current_frame]
+
+    # jump on space key
+        if keys[pg.K_i] and not self.jumping and self.landed:
+            self.jumping = True
+            self.landed = False
+
+            self.y_velo = -15
+        if not keys[pg.K_i]:
+            self.jumping = False
+
+
+
+
+        self.y_velo += GRAVITY
+        if self.y_velo > 10: # and self.rect.y != 550:
+            self.y_velo = 10         # set terminal velocity
+        y_change += self.y_velo
+
+    # starts over the game
+        if keys[pg.K_RETURN] and self.HP <= 0:
+            self.rect.x = self.x
+            self.rect.y = self.y
+            self.HP = 1
+            self.velo = 5
+            self.jumping = False
+            self.landed = True
+            self.y_velo = 0
+            self.reset += 1
+            
+        font = pg.font.SysFont("TimesNewRoman", 35)
+        score_text = font.render("HP: " + str(self.HP), True, WHITE)
+        screen.blit(score_text, (920, 50))
+        # checks for collision 
+        for surface in surface_list:
+            # vertical collision
+            if surface.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    y_change = surface.rect.top - self.rect.bottom
+                    self.landed = True
+                    self.jumping = False
+                    self.y_velo = 0
+                # if player is going up
+                elif self.y_velo < 0:
+                    y_change = surface.rect.bottom - self.rect.top
+                    self.y_velo = 0
+            # Horizontal collision
+            if surface.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
+                x_change = 0
+        
+        for enemy in enemy_list:
+            # vertical collision
+            if enemy.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
+                # if player is going down
+                if self.y_velo >= 0:
+                    self.HP -= 1
+                    enemy.rect.x += -10000
                 # if player is going up
                 elif self.y_velo < 0:
                     self.HP -= 1
@@ -421,6 +775,7 @@ class Player:
         self.rect.y += y_change
         y_change = -1 * self.velo
 
+
     def re(self):
         font = pg.font.SysFont("TimesNewRoman", 35)
         score_text = font.render("Resets: " + str(self.reset), True, WHITE)
@@ -472,8 +827,12 @@ class Brick:
     def lava(self, player_list):
         for player in player_list:
             if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
+                player.jumping = True
+                # player.landed = False
+
+                player.y_velo = -15               
                 player.HP -= 1
-                player.y_velo = -15
+                
 
 class Enemy:
     def __init__(self, x_loc, y_loc, width, height, color, display, img):
@@ -506,16 +865,20 @@ class Enemy:
         for player in player_list:
             # vertical collision
             if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-                self.HP -= 1
+                x_change = 0
+                self.rect.x = -1000
+                player.HP -= 1
             # Horizontal collision
             elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1
+                x_change = 0
+                self.rect.x = -1000
+                player.HP -= 1
+
         
         keys = pg.key.get_pressed()
         if keys[pg.K_RETURN] and self.HP <= 0:
-            self.rect.x = self.rect.x
-            self.rect.y = self.rect.y
-            self.HP = 1
+            self.rect.x = self.x
+            self.rect.y = self.y
             self.velo = 5
             self.jumping = False
             self.landed = True
@@ -525,37 +888,38 @@ class Enemy:
         x_change = 0
         y_change = 0
         self.rect.y += self.velo
-        if self.HP <= 0:
-            self.rect.y = HEIGHT - HEIGHT + 100
-        elif self.rect.y >= HEIGHT and self.HP >= 1:
-            self.rect.y -= HEIGHT
         # print(self.rect.y)
 
         for player in player_list:
             # vertical collision
             if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
             # Horizontal collision
             elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
+            if player.HP <= 0:
+                self.rect.y = HEIGHT - HEIGHT + 100
+            elif self.rect.y >= HEIGHT and self.HP >= 1:
+                self.rect.y -= HEIGHT
         
     def rmey(self, player_list):
         x_change = 0
         y_change = 0
         self.rect.x += self.velo
 
-        if self.HP <= 0:
-            self.rect.x = 0
-        elif self.rect.x + 55 >= WIDTH and self.HP >= 1:
-            self.rect.x -= WIDTH + 55
+       
 
         for player in player_list:
             # vertical collision
             if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
             # Horizontal collision
             elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
+            if player.HP <= 0:
+                self.rect.x = 0
+            elif self.rect.x + 55 >= WIDTH and self.HP >= 1:
+                self.rect.x -= WIDTH + 55
         
 
     def right_side(self, player_list):
@@ -576,10 +940,10 @@ class Enemy:
         for player in player_list:
             # vertical collision
             if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
             # Horizontal collision
             elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
         
     def left_side(self, player_list):
         if self.HP <= 0:
@@ -599,10 +963,10 @@ class Enemy:
         for player in player_list:
             # vertical collision
             if player.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
             # Horizontal collision
             elif player.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1
+                player.HP -= 1
 
 
 
@@ -662,7 +1026,7 @@ class Move:
         elif self.rect.y <= self.down or self.rect.y <= 100:
             self.velo = -1
 
-    def right_side(self):
+    def right_side(self, player_list):
         self.left = self.x 
         self.right = self.x + self.range
         self.rect.x += -self.velo
@@ -670,7 +1034,13 @@ class Move:
             self.velo = -1
         elif self.rect.x >= self.right or self.rect.x <= 50:
             self.velo = 1
-    def left_side(self):
+        for player in player_list:
+            if player.rect.colliderect(self.rect):
+                player.y_velo = self.velo
+            else:
+                player.y_velo = player.y_velo
+
+    def left_side(self, player_list):
         self.left = self.x 
         self.right = self.x - self.range
         self.rect.x += -self.velo
@@ -678,6 +1048,12 @@ class Move:
             self.velo = 1
         elif self.rect.x <= self.right or self.rect.x <= 50:
             self.velo = -1
+
+        for player in player_list:
+            if player.rect.colliderect(self.rect):
+                player.x_velo = self.velo
+            else:
+                player.x_velo = player.x_velo
 
 class Key:
     def __init__(self, display, color, x, y, width, height, img):
@@ -696,9 +1072,7 @@ class Key:
 
     def draw(self):
         self.display.blit(self.image, self.rect)
-    def picked_up(self, player_list, gate_list, enemy_list, up_enemy_list,
-                  rem_list, big_enemy_list, br_enemy_list,
-                  rimy_list, lemy_list):
+    def picked_up(self, player_list, gate_list):
         keys = pg.key.get_pressed()
         if keys[pg.K_RETURN] and self.HP <= 0:
             self.HP = 1
@@ -706,124 +1080,21 @@ class Key:
         font = pg.font.SysFont("TimesNewRoman", 35)
         score_text = font.render("Key: " + str(self.key), True, WHITE)
         screen.blit(score_text, (800, 50))
-        for player in player_list:
-            # vertical collision
-            if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-            #    self.key = 1
-               self.pick_up = True
-            # Horizontal collision
-            elif player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                self.pick_up = True
-                
+
         for gate in gate_list:
-            # vertical collision
-            if gate.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                pass           
-         # Horizontal collision
-            elif player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                pass
-       
-        for enemy in enemy_list:
-            if enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                elif player.y_velo < 0:
-                    self.HP -= 1
-            elif enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                self.HP -= 1
-                if player.rect.y > HEIGHT:
-                    self.HP -= 1
+            for player in player_list:
+                if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
+                    self.pick_up = True
+                    gate.rect.y = -100
 
-        for upenemy in up_enemy_list:
-            if upenemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                elif player.y_velo < 0:
-                    self.HP -= 1
-            elif upenemy.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                self.HP -= 1       
-        
-        for rem in rem_list:
-            # vertical collision
-            if rem.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                # if player is going down
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                # if player is going up
-                elif player.y_velo < 0:
-                    self.HP -= 1
-            # Horizontal collision
-            elif rem.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                self.HP -= 1
-            if player.rect.y > HEIGHT:
-                    self.HP -= 1
-        
-        for big_enemy in big_enemy_list:
-            # vertical collision
-            if big_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                # if player is going down
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                # if player is going up
-                elif player.y_velo < 0:
-                    self.HP -= 1
-            # Horizontal collision
-            elif big_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                self.HP -= 1
-            if player.rect.y > HEIGHT:
-                    self.HP -= 1
-        
-        for br_enemy in br_enemy_list:
-            # vertical collision
-            if br_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                elif player.y_velo < 0:
-                    self.HP -= 1
-            elif br_enemy.rect.colliderect(player.rect.x , player.rect.y, player.rect.width, player.rect.height):
-                self.HP -= 1
-            if player.rect.y > HEIGHT:
-                    self.HP -= 1
-    
+                if self.pick_up == True:
+                    player.HP += 1
+                    self.pick_up = False
+                    self.rect.y = -100
+                if player.HP <= 0:
+                    self.rect.y = self.y
+                    gate.rect.y = gate.rect.y
 
-        for rimy in rimy_list:
-            if rimy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                elif player.y_velo < 0:
-                    self.HP -= 1
-                elif rimy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                    if player.rect.y > HEIGHT:
-                        self.HP -= 1
-    
-        for lemy in lemy_list:
-            if lemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                if player.y_velo >= 0:
-                    self.HP -= 1
-                elif player.y_velo < 0:
-                        self.HP -= 1
-                elif lemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                    if player.rect.y > HEIGHT:
-                        self.HP -= 1        
-
-        if self.pick_up == True:
-            gate.rect.y = -100
-            self.key += 1
-            self.rect.y = -100
-            self.pick_up = False
-        if self.HP <= 0 and self.key >= 1:
-            gate.rect.y = gate.rect.y
-            self.rect.y = self.y
-            self.key += -1
-            self.HP = 1
-            self.pick_up = False
-        if player.HP <= 0 and self.key >= 1:
-            gate.rect.y = gate.rect.y
-            self.rect.y = self.y
-            self.key += -1
-            self.pick_up = False
 
 
 
@@ -844,108 +1115,21 @@ class Gate:
         self.y = y
     def draw(self):
         self.display.blit(self.image, self.rect)
-    def picked_up(self, player_list, key_list, enemy_list, up_enemy_list,
-                  rem_list, big_enemy_list, br_enemy_list,
-                  rimy_list, lemy_list):
+    def picked_up(self, player_list, key_list):
         for key in key_list:
             for player in player_list:
-                if player.rect.colliderect(key.rect.x, key.rect.y, key.rect.width, key.rect.height):
+                if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
                     self.pick_up = True
-                elif player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                    self.pick_up = True
-            for enemy in enemy_list:
-                # vertical collision
-                if enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    # if player is going down
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    # if player is going up
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                # Horizontal collision
-                elif enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                    if player.rect.y > HEIGHT:
-                        self.HP -= 1
+                    key.rect.y = -100
 
-            for upenemy in up_enemy_list:
-                # vertical collision
-                if upenemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    # if player is going down
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    # if player is going up
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                # Horizontal collision
-                elif upenemy.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                    self.HP -= 1       
-            
-            for rem in rem_list:
-                # vertical collision
-                if rem.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    # if player is going down
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    # if player is going up
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                # Horizontal collision
-                elif rem.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                if player.rect.y > HEIGHT:
-                        self.HP -= 1
-            
-            for big_enemy in big_enemy_list:
-                # vertical collision
-                if big_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    # if player is going down
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    # if player is going up
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                # Horizontal collision
-                elif big_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                if player.rect.y > HEIGHT:
-                        self.HP = 0
-            
-            for br_enemy in br_enemy_list:
-                if br_enemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                elif br_enemy.rect.colliderect(player.rect.x , player.rect.y, player.rect.width, player.rect.height):
-                    self.HP -= 1
-                if player.rect.y > HEIGHT:
-                    self.HP = 0
+                if self.pick_up == True:
+                    player.HP += 1
+                    self.pick_up = False
+                    self.rect.y = -100
+                if player.HP <= 0:
+                    self.rect.y = self.y
+                    key.rect.y = key.rect.y
 
-
-            for rimy in rimy_list:
-                if rimy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    elif player.y_velo < 0:
-                        self.HP -= 1
-                    elif rimy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                        self.HP -= 1
-                        if player.rect.y > HEIGHT:
-                            self.HP -= 1
-        
-            for lemy in lemy_list:
-                if lemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                    if player.y_velo >= 0:
-                        self.HP -= 1
-                    elif player.y_velo < 0:
-                            self.HP -= 1
-                    elif lemy.rect.colliderect(player.rect.x, player.rect.y, player.rect.width, player.rect.height):
-                        self.HP -= 1
-                        if player.rect.y > HEIGHT:
-                            self.HP -= 1
-
-  
        
         if self.pick_up == True:
             self.pick_up = False
@@ -953,3 +1137,18 @@ class Gate:
             self.rect.y = self.y
             self.HP = 1
             self.pick_up = False
+
+
+        for key in key_list:
+            for player in player_list:
+                if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
+                    self.pick_up = True
+                    key.rect.y = -100
+
+                if self.pick_up == True:
+                    player.HP += 1
+                    self.pick_up = False
+                    self.rect.y = -100
+                if player.HP <= 0:
+                    self.rect.y = self.y
+                    key.rect.y = key.rect.y
