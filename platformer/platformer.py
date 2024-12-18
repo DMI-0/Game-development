@@ -4,7 +4,7 @@ import pygame as pg
 
 screen = pg.display.set_mode([WIDTH, HEIGHT])
 
-index = 0
+index = 20
 end_list = []
 player_list = []
 enemy_list = []
@@ -64,6 +64,7 @@ bridge_img = pg.image.load('platformer/images/bridge.png')
 coin_img = pg.image.load('platformer/images/coin_gold.png')
 bonus_img = pg.image.load('platformer/images/bonus.png')
 lava_img = pg.image.load('platformer/images/lava.png')
+
 def load_levels(level):
     end_list.clear()
     player_list.clear()
@@ -178,7 +179,7 @@ while playing:
     # game logic
   # clear the screen
     if index <= 11:
-        screen.fill(NIGHT)
+        screen.fill(BLACK)
     elif index >= 11:
         screen.fill(DARK_RED)
 
@@ -200,18 +201,9 @@ while playing:
         font = pg.font.SysFont("TimesNewRoman", 35)
         text = font.render("CONGRADULATIONS", True, WHITE)
         screen.blit(text, (450, 350)) 
-        text2 = font.render("YOU'VE BEATEN 20 LEVELS",True, WHITE)
+        text2 = font.render("YOU'VE THE GAME",True, WHITE)
         screen.blit(text2, (400, 400))
-    # elif index == 23:
-    #     font = pg.font.SysFont("TimesNewRoman", 35)
-    #     text = font.render("This is your clone", True, WHITE)
-    #     screen.blit(text, (450, 350)) 
-    #     text2 = font.render("he can't beat the levels",True, WHITE)
-    #     screen.blit(text2, (400, 400))
-    #     text3 = font.render("use him to make the player pass", True, WHITE)
-    #     screen.blit(text3, (350, 450))
-    #     text4 = font.render("use J to move left, L to move right, and I to jump", True, WHITE)
-    #     screen.blit(text4,(300, 500))
+
 
     for block in brick_list:
         block.draw_brick()
@@ -247,32 +239,39 @@ while playing:
         g.picked_up(player_list, key_list)
     for char in enemy_list:
         char.draw_enemy()
-        char.update(player_list)
-        char.reset()
+        char.update()
+        char.col(player_list)
+        char.reset(player_list)
     for rem in reverse_list:
         rem.draw_enemy()
-        rem.rmey(player_list)
-        rem.reset()
+        rem.rmey()
+        rem.col(player_list)
+        rem.reset(player_list)
     for umy in up_enemy_list:
         umy.draw_enemy()
-        umy.upen(player_list)
-        umy.reset()
+        umy.upen()
+        umy.col(player_list)
+        umy.reset(player_list)
     for char in big_enemy_list:
         char.draw_enemy()
-        char.update(player_list)
-        char.reset()
+        char.update()
+        char.col(player_list)
+        char.reset(player_list)
     for br in br_enemy_list:
         br.draw_enemy()
-        br.rmey(player_list)
-        br.reset()
+        br.rmey()
+        char.col(player_list)
+        br.reset(player_list)
     for char in rimy_list:
         char.draw_enemy()
-        char.right_side(player_list)
-        char.reset()
+        char.right_side()
+        char.col(player_list)
+        char.reset(player_list)
     for char in lemy_list:
         char.draw_enemy()
-        char.left_side(player_list)
-        char.reset()
+        char.left_side()
+        char.col(player_list)
+        char.reset(player_list)
     for h in block_list:
         h.draw_brick()
         h.HP(player_list)
@@ -311,8 +310,7 @@ while playing:
                 font = pg.font.SysFont("TimesNewRoman", 35)
                 text = font.render("THIS IS JUST SAD",True, WHITE)
                 screen.blit(text, ((WIDTH/2)-150, HEIGHT/2))
-        if play.HP <= 0:
-            play.reset += 1
+
 
 
 
