@@ -183,13 +183,14 @@ while playing:
     elif index >= 11:
         screen.fill(DARK_RED)
 
+
         
 
     # draw code should go here
 
     if index == 0:
         font = pg.font.SysFont("TimesNewRoman", 35)
-        score_text = font.render("Use '<-' and '->' or 'A' and 'D' to move, 'space bar' or 'w' to Jump",True, WHITE)
+        score_text = font.render("Use '<-' and '->' or 'A' and 'D' to move, 'space bar', 'up key' or 'w' to Jump",True, WHITE)
         screen.blit(score_text, (200, 350))
     elif index == 11:
         font = pg.font.SysFont("TimesNewRoman", 35)
@@ -202,7 +203,7 @@ while playing:
         text = font.render("CONGRADULATIONS", True, WHITE)
         screen.blit(text, (450, 350)) 
         text2 = font.render("YOU'VE THE GAME",True, WHITE)
-        screen.blit(text2, (400, 400))
+        screen.blit(text2, (460, 400))
 
 
     for block in brick_list:
@@ -288,12 +289,19 @@ while playing:
                     colapsing_list, rimy_list, lemy_list)
         play.draw()
         play.re()
+        if index == 20:
+            if play.reset == 0:
+                font = pg.font.SysFont("TimesNewRoman", 35)
+                text = font.render("The yellow blocks give health", True, WHITE)
+                screen.blit(text, (145, 150))
+                text2 = font.render("use it to for the lava", True, WHITE)
+                screen.blit(text2, (150, 200))
         if play.HP <= 0:
             screen.fill(BLACK)
             font = pg.font.SysFont("TimesNewRoman", 35)
-            text = font.render("GAME OVER", True, SKY)
+            text = font.render("GAME OVER", True, WHITE)
             screen.blit(text, ((WIDTH/2)-100, HEIGHT/2))
-            start = font.render("Click 'Return' or 'Enter' to start over", True, SKY)
+            start = font.render("Click 'Return' or 'Enter' to start over", True, WHITE)
             screen.blit(start, ((WIDTH/2)-250, (HEIGHT/2)+50))
             if play.reset == 50:
                 screen.fill(BLACK)
@@ -310,6 +318,7 @@ while playing:
                 font = pg.font.SysFont("TimesNewRoman", 35)
                 text = font.render("THIS IS JUST SAD",True, WHITE)
                 screen.blit(text, ((WIDTH/2)-150, HEIGHT/2))
+
 
 
 
