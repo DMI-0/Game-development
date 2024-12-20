@@ -46,9 +46,8 @@ class Player:
 
     def draw(self):
         self.display.blit(self.image, self.rect)
-    def update(self, surface_list, enemy_list, move_list, up_enemy_list,
-               moving_list, rem_list, up_list, gate_list, right_list, left_list,
-               big_enemy_list, br_enemy_list, collasping_list, rimy_list, lemy_list):
+    def update(self, surface_list, move_list, moving_list, up_list,
+               gate_list, right_list, left_list, collasping_list):
         x_change = 0
         y_change = 0
 
@@ -207,21 +206,7 @@ class Player:
                 # self.y_velo = 0
                 pass
 
-        # for rem in rem_list:
-        #     # vertical collision
-        #     if rem.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
-        #         # if player is going down
-        #         if self.y_velo >= 0:
-        #             self.HP -= 1
-        #         # if player is going up
-        #         elif self.y_velo < 0:
-        #             self.HP -= 1
-        #     # Horizontal collision
-        #     elif rem.rect.colliderect(self.rect.x + x_change, self.rect.y, self.rect.width, self.rect.height):
-        #         self.HP -= 1
-        #     if self.rect.y > HEIGHT:
-        #             self.HP -= 1
-        
+
         for up in up_list:
             # vertical collision
             if up.rect.colliderect(self.rect.x, self.rect.y + y_change, self.rect.width, self.rect.height):
@@ -591,17 +576,13 @@ class Key:
                     gate.rect.y = -100
 
                 if self.pick_up == True:
-                    player.HP += 1
+                    self.key += 1
                     self.pick_up = False
                     self.rect.y = -100
                 if player.HP <= 0:
                     self.rect.y = self.y
                     gate.rect.y = gate.rect.y
 
-
-
-
-                        # resets += 1
     
 class Gate:
     def __init__(self, display, color, x, y, width, height, img):
@@ -621,12 +602,12 @@ class Gate:
     def picked_up(self, player_list, key_list):
         for key in key_list:
             for player in player_list:
-                if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
+                if player.rect.colliderect(key.rect.x, key.rect.y, key.rect.width, key.rect.height):
                     self.pick_up = True
                     key.rect.y = -100
 
                 if self.pick_up == True:
-                    player.HP += 1
+                    key.key += 1
                     self.pick_up = False
                     self.rect.y = -100
                 if player.HP <= 0:
@@ -642,19 +623,7 @@ class Gate:
             self.pick_up = False
 
 
-        for key in key_list:
-            for player in player_list:
-                if player.rect.colliderect(self.rect.x, self.rect.y, self.rect.width, self.rect.height):
-                    self.pick_up = True
-                    key.rect.y = -100
 
-                if self.pick_up == True:
-                    player.HP += 1
-                    self.pick_up = False
-                    self.rect.y = -100
-                if player.HP <= 0:
-                    self.rect.y = self.y
-                    key.rect.y = key.rect.y
 
 # player = 0
 # col = 0
