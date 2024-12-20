@@ -191,7 +191,7 @@ while playing:
     if index == 0:
         font = pg.font.SysFont("TimesNewRoman", 35)
         score_text = font.render("Use '<-' and '->' or 'A' and 'D' to move, 'space bar', 'up key' or 'w' to Jump",True, WHITE)
-        screen.blit(score_text, (200, 350))
+        screen.blit(score_text, (130, 350))
     elif index == 11:
         font = pg.font.SysFont("TimesNewRoman", 35)
         text = font.render("CONGRADULATIONS", True, WHITE)
