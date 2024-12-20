@@ -283,10 +283,8 @@ while playing:
 
 
     for play in player_list:
-        play.update(brick_list, enemy_list,teleport_list, 
-                    up_enemy_list, moving_list, reverse_list, re_list, gate_list,
-                    right_side_list, left_side_list, big_enemy_list, br_enemy_list,
-                    colapsing_list, rimy_list, lemy_list)
+        play.update(brick_list,teleport_list, moving_list, re_list, gate_list,
+                    right_side_list, left_side_list, colapsing_list)
         play.draw()
         play.re()
         if index == 20:
