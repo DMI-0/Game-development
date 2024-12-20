@@ -261,7 +261,7 @@ while playing:
     for br in br_enemy_list:
         br.draw_enemy()
         br.rmey()
-        char.col(player_list)
+        br.col(player_list)
         br.reset(player_list)
     for char in rimy_list:
         char.draw_enemy()
