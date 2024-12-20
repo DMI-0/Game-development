@@ -41,7 +41,7 @@ class Player:
         self.run_left = False
 
         self.current_frame = 0
-        self.delay = 50
+        self.delay = 10
         self.last  = pg.time.get_ticks()
 
     def draw(self):
@@ -337,6 +337,7 @@ class Player:
         font = pg.font.SysFont("TimesNewRoman", 35)
         score_text = font.render("Resets: " + str(self.reset), True, WHITE)
         screen.blit(score_text, (1045, 50))
+
 
 class Brick:
     def __init__(self, display, color, x, y, width, height, img):
